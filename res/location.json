@@ -1,0 +1,45 @@
+{
+  "Lava": {
+    "downRun": [],
+    "normalRun": [],
+    "Jump": [],
+    "Death": [],
+    "Clouds": [],
+    "Obstacles": [],
+    "Bird": [],
+    "deathSound": [],
+    "_comment": "Alternativly change the keyValue pair to singlepath",
+    "scoreUpSound": [],
+    "jumpSound": [],
+    "color": "#e88420"
+  },
+  "Space": {
+    "downRun": [],
+    "normalRun": [],
+    "Jump": [],
+    "Death": [],
+    "Clouds": [],
+    "Obstacles": [],
+    "Bird": [],
+    "deathSound": [],
+    "_comment": "Alternativly change the keyValue pair to singlepath",
+    "scoreUpSound": [],
+    "jumpSound": [],
+    "color": "#000000"
+  },
+  "Origin": {
+    "downRun": [],
+    "normalRun": [],
+    "Jump": [],
+    "Death": [],
+    "Clouds": [],
+    "Obstacles": [],
+    "Bird": [],
+    "deathSound": [],
+    "_comment": "Alternativly change the keyValue pair to singlepath",
+    "scoreUpSound": [],
+    "jumpSound": [],
+    "color": "#000000"
+
+  }
+}

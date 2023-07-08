@@ -1,0 +1,123 @@
+package game.screen;
+
+import game.entities.*;
+import game.utils.Resource;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
+public class GameLoop extends Thread implements KeyListener {
+
+    private GameScreen gameScreen;
+    private Dino dino;
+    private List<Enemy> enemies;
+    private Background background;
+
+    private boolean isRunning = true;
+
+    public GameLoop(GameScreen gameScreen) {
+        this.gameScreen = gameScreen;
+        this.dino = new Dino();
+        this.enemies = new ArrayList<>();
+        this.background = new Background();
+
+        // Add initial enemies
+        addEnemy();
+
+        // Add key listener
+        gameScreen.addKeyListener(this);
+    }
+
+    private void addEnemy() {
+        BufferedImage cactusImage = Resource.getResourceImage("res/images/origin/cactus1.png");
+        int cactusWidth = cactusImage.getWidth();
+        int cactusHeight = cactusImage.getHeight();
+        int cactusX = GameWindow.SCREEN_WIDTH + 100;
+
+        Obstacle cactus = new Obstacle(dino, cactusX, cactusWidth, cactusHeight, cactusImage);
+        enemies.add(cactus);
+
+        Bird bird = new Bird(dino, cactusX);
+        enemies.add(bird);
+    }
+
+    private void update() {
+        dino.update();
+
+        // Update enemies
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+            enemy.update();
+
+            if (enemy.isOutOfScreen()) {
+                enemies.remove(enemy);
+                i--;
+            }
+        }
+
+        // Add new enemy
+        if (enemies.size() < 2) {
+            addEnemy();
+        }
+    }
+
+    private void draw(Graphics g) {
+        background.draw(g);
+        dino.draw(g);
+
+        // Draw enemies
+        for (Enemy enemy : enemies) {
+            enemy.draw(g);
+        }
+
+        // Draw score
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.BOLD, 16));
+        g.drawString("Score: " + dino.getScore(), 10, 20);
+    }
+
+    @Override
+    public void run() {
+        while (isRunning) {
+            gameScreen.gameUpdate();
+            gameScreen.repaint();
+
+            try {
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+
+        if (keyCode == KeyEvent.VK_SPACE) {
+            dino.setJumping(true);
+        } else if (keyCode == KeyEvent.VK_DOWN) {
+            dino.setDownRun(true);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+
+        if (keyCode == KeyEvent.VK_SPACE) {
+            dino.setJumping(false);
+        } else if (keyCode == KeyEvent.VK_DOWN) {
+            dino.setDownRun(false);
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Not used
+    }
+}

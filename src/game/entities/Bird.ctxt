@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Bird
+comment1.params=dino\ posX
+comment1.target=Bird(Dino,\ int)
+comment2.params=
+comment2.target=void\ update()
+comment3.params=g
+comment3.target=void\ draw(java.awt.Graphics)
+comment4.params=
+comment4.target=java.awt.Rectangle\ getBound()
+comment5.params=
+comment5.target=boolean\ isOutOfScreen()
+comment6.params=
+comment6.target=int\ getY()
+numComments=7
